@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Search</title>
+</head>
+<body>
+    <h1>Search for Products</h1>
+    <input type="text" id="searchInput" placeholder="Type product name">
+    <button onclick="searchProduct()">Search</button>
+    <div id="searchResults"></div>
+
+    <script>
+        function searchProduct() {
+            const searchTerm = document.getElementById('searchInput').value;
+            const xhr = new XMLHttpRequest();
+            // Encoding the search term to handle special characters
+            xhr.open('GET', `/search?query=${encodeURIComponent(searchTerm)}`, true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    // Displaying search results
+                    document.getElementById('searchResults').innerHTML = xhr.responseText;
+                }
+            };
+            xhr.send();
+        }
+    </script>
+</body>
+</html>
